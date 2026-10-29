@@ -1,7 +1,5 @@
 # Customer Retention & Churn Analysis
 
-**Future Interns - Data Science & Analytics Internship, Task 2**
-
 This project analyzes customer churn in a telecommunications dataset. It combines data cleaning and quality checks, Python-based KPI and segment analysis, Excel reporting, and a two-page Power BI dashboard to highlight customer groups whose churn patterns deserve further investigation.
 
 **GitHub repository:** [shariffsiddiq/FUTURE_DS_02](https://github.com/shariffsiddiq/FUTURE_DS_02)
@@ -13,6 +11,20 @@ This project analyzes customer churn in a telecommunications dataset. It combine
 - Examine average charges and customer tenure.
 - Present the results in a reusable Excel report and interactive Power BI dashboard.
 - Translate observed patterns into practical questions and retention actions.
+
+## Project phases
+
+### Phase 1 — Data preparation and quality checks
+
+Start with the customer-level CSV and prepare the cleaned workbook for analysis. The workbook documents field types, missing values, and cleaning decisions; the project retains customer records rather than dropping rows without review.
+
+### Phase 2 — Python analysis and Excel outputs
+
+Use Python to calculate churn and retention KPIs and compare customer segments, including contract, tenure, payment method, internet service, support, and security. The script prints its analysis and writes the detailed results to an Excel workbook.
+
+### Phase 3 — Power BI reporting and business interpretation
+
+Explore the headline KPIs and segment comparisons in the two-page Power BI report. The report and dashboard support follow-up questions about customer experience and retention; observed segment differences are descriptive and do not establish cause.
 
 ## Headline results
 
@@ -123,6 +135,17 @@ To explore the interactive dashboard, open `powerbi/Telco_Customer_Churn_Dashboa
 - Review the electronic-check and fiber-optic segments in conjunction with tenure, contract type, charges, and service experience.
 - Evaluate whether support, security, or billing improvements address customer concerns; test interventions and track their outcomes.
 - Monitor overall and segment-level churn over time instead of relying on a single snapshot.
+
+## Future implementation roadmap
+
+These are recommended extensions for a future iteration; they are not included in the current descriptive analysis:
+
+1. **Build a validated churn-risk model.** Establish a simple baseline, use customer-level train/validation/test splits, check class imbalance and leakage, and evaluate calibration and recall alongside precision.
+2. **Understand when customers leave.** If dated customer histories become available, add cohort or time-to-event analysis instead of treating a one-time snapshot as a trend.
+3. **Test retention actions.** Design controlled experiments or a suitable holdout evaluation for offers and service changes. Compare incremental retained customers and costs, not just model scores.
+4. **Improve ongoing monitoring.** Refresh the dashboard with consistently defined time-based churn KPIs, cohort tracking, and documented data-quality checks.
+
+Use appropriate privacy controls for customer-level records, and review model fairness and business constraints before using risk scores to guide customer contact.
 
 ## Limitations
 
