@@ -1,160 +1,89 @@
 # Customer Retention & Churn Analysis
 
-This project analyzes customer churn in a telecommunications dataset. It combines data cleaning and quality checks, Python-based KPI and segment analysis, Excel reporting, and a two-page Power BI dashboard to highlight customer groups whose churn patterns deserve further investigation.
+An end-to-end analysis of telecommunications customer churn, moving from data preparation to repeatable Python analysis and an interactive Power BI report. The project explores customer retention, churn patterns across service and contract groups, and practical questions for further investigation.
 
-**GitHub repository:** [shariffsiddiq/FUTURE_DS_02](https://github.com/shariffsiddiq/FUTURE_DS_02)
+## Project workflow
 
-## Project objectives
+**Excel → Python → Power BI**
 
-- Measure overall customer churn and retention.
-- Compare churn across contract, tenure, payment, internet-service, support, and customer groups.
-- Examine average charges and customer tenure.
-- Present the results in a reusable Excel report and interactive Power BI dashboard.
-- Translate observed patterns into practical questions and retention actions.
+### Phase 1 — Excel: data preparation and quality checks
 
-## Project phases
+Prepare the customer data and review the cleaning and validation notes before analysis. The cleaned workbook includes `Cleaned_Data`, `Data_Quality_Report`, and `Cleaning_Summary` sheets.
 
-### Phase 1 — Data preparation and quality checks
+- Raw data: [`data/Raw/WA_Fn-UseC_-Telco-Customer-Churn.csv`](data/Raw/WA_Fn-UseC_-Telco-Customer-Churn.csv)
+- Cleaned dataset: [`data/Cleaned/Telco_Customer_Churn_Cleaned.xlsx`](data/Cleaned/Telco_Customer_Churn_Cleaned.xlsx)
+- Excel copy: [`excel/Telco_Customer_Churn_Cleaned.xlsx`](excel/Telco_Customer_Churn_Cleaned.xlsx)
+- Data preparation and quality notes: see the cleaned workbook's `Data_Quality_Report` and `Cleaning_Summary` sheets.
 
-Start with the customer-level CSV and prepare the cleaned workbook for analysis. The workbook documents field types, missing values, and cleaning decisions; the project retains customer records rather than dropping rows without review.
+The prepared dataset contains 7,043 customer records and 21 columns. Blank `TotalCharges` values for zero-tenure customers were converted to zero, and identifiers and churn labels were checked as part of data validation.
 
-### Phase 2 — Python analysis and Excel outputs
+### Phase 2 — Python: repeatable churn analysis
 
-Use Python to calculate churn and retention KPIs and compare customer segments, including contract, tenure, payment method, internet service, support, and security. The script prints its analysis and writes the detailed results to an Excel workbook.
+The Python script calculates churn and retention KPIs and compares customer segments, including contract, tenure, payment method, internet service, support, and security. It prints the analysis tables to the terminal and saves the results workbook.
 
-### Phase 3 — Power BI reporting and business interpretation
+- Analysis script: [`python/telco_churn_analysis.py`](python/telco_churn_analysis.py)
+- Results workbook: [`reports/Telco_Churn_Analysis_Results.xlsx`](reports/Telco_Churn_Analysis_Results.xlsx)
 
-Explore the headline KPIs and segment comparisons in the two-page Power BI report. The report and dashboard support follow-up questions about customer experience and retention; observed segment differences are descriptive and do not establish cause.
-
-## Headline results
-
-The cleaned dataset contains **7,043 customers** and **21 columns**.
-
-| Metric | Result |
-| --- | ---: |
-| Churned customers | 1,869 |
-| Retained customers | 5,174 |
-| Churn rate | 26.54% |
-| Retention rate | 73.46% |
-| Average tenure | 32.37 months |
-| Average monthly charges | 64.76 |
-| Average total charges | 2,279.73 |
-
-### Selected churn rates by segment
-
-| Segment | Churn rate |
-| --- | ---: |
-| Month-to-month contract | 42.71% |
-| One-year contract | 11.27% |
-| Two-year contract | 2.83% |
-| Tenure: 0-12 months | 47.44% |
-| Tenure: 13-24 months | 28.71% |
-| Tenure: 25-48 months | 20.39% |
-| Tenure: 49-72 months | 9.51% |
-| Electronic check | 45.29% |
-| Fiber optic | 41.89% |
-| No online security | 41.77% |
-| No tech support | 41.64% |
-
-These are descriptive comparisons, not evidence that any single factor causes churn. Segment rates should be considered alongside other customer characteristics and business context.
-
-## Dashboard preview
-
-### Customer overview
-
-![Customer overview dashboard](visuals/customer_overview.png)
-
-### Churn drivers and retention
-
-![Churn drivers and retention dashboard](visuals/churn_drivers_retention.png)
-
-The Power BI report has two pages:
-
-1. **Customer Overview** - overall customer, churn, retention, and tenure KPIs, with contract, internet service, and payment method filters.
-2. **Churn Drivers & Retention** - churn comparisons by tenure, payment method, internet service, tech support, and online security, plus average monthly charges by churn status.
-
-## Project files
-
-```text
-.
-|-- data/
-|   |-- Raw/
-|   |   `-- WA_Fn-UseC_-Telco-Customer-Churn.csv
-|   `-- Cleaned/
-|       `-- Telco_Customer_Churn_Cleaned.xlsx
-|-- excel/
-|   `-- Telco_Customer_Churn_Cleaned.xlsx
-|-- powerbi/
-|   `-- Telco_Customer_Churn_Dashboard.pbix
-|-- python/
-|   `-- telco_churn_analysis.py
-|-- reports/
-|   |-- CUSTOMER RETENTION & CHURN ANALYSIS.docx
-|   |-- CUSTOMER RETENTION & CHURN ANALYSIS.pdf
-|   |-- Telco_Customer_Churn_Cleaned.xlsx
-|   `-- Telco_Churn_Analysis_Results.xlsx  (generated by the Python script)
-|-- visuals/
-|   |-- churn_drivers_retention.png
-|   `-- customer_overview.png
-`-- README.md
-```
-
-The cleaned workbook includes three sheets: `Cleaned_Data`, `Data_Quality_Report`, and `Cleaning_Summary`. Copies of the cleaned workbook are kept in the `data/Cleaned/`, `excel/`, and `reports/` folders for the project's data, Excel, and reporting deliverables.
-
-## Data preparation
-
-The original CSV is retained under `data/Raw/`. The cleaned workbook preserves all 7,043 customer records and all 21 source columns. The accompanying quality report records the checks and transformations, including:
-
-- Trimming leading and trailing whitespace in text fields.
-- Converting `TotalCharges` to a numeric value.
-- Replacing 11 blank `TotalCharges` values with zero where customer tenure is zero.
-- Checking identifiers, duplicates, numeric values, ranges, and churn labels.
-- Retaining the original `Yes`/`No` churn labels and all customer rows.
-
-## Run the Python analysis
-
-Run these commands from the project root. Python, pandas, and openpyxl are required.
+To run the analysis from the project root:
 
 ```powershell
 python -m pip install pandas openpyxl
 python python/telco_churn_analysis.py
 ```
 
-The script reads `data/Cleaned/Telco_Customer_Churn_Cleaned.xlsx`, prints all analysis tables to the terminal, and writes `reports/Telco_Churn_Analysis_Results.xlsx`.
+The script reads `data/Cleaned/Telco_Customer_Churn_Cleaned.xlsx` and writes the analysis workbook to `reports/`.
 
-The results workbook contains the following sheets:
+### Phase 3 — Power BI: interactive dashboards
 
-`KPI_Summary`, `Contract_Analysis`, `Internet_Analysis`, `Payment_Analysis`, `Senior_Citizens`, `Gender_Analysis`, `Dependents_Analysis`, `Online_Security`, `Tech_Support`, `Tenure_Analysis`, and `Monthly_Charges`.
+Explore customer overview metrics and churn segment comparisons in the two-page interactive report. The screenshots below are static previews; open the `.pbix` file in Power BI Desktop to use the filters.
 
-To explore the interactive dashboard, open `powerbi/Telco_Customer_Churn_Dashboard.pbix` in Power BI Desktop.
+- Power BI report: [`powerbi/Telco_Customer_Churn_Dashboard.pbix`](powerbi/Telco_Customer_Churn_Dashboard.pbix)
 
-## Business considerations
+**Customer overview**
 
-- Investigate the early customer experience: the observed churn rate is highest among customers with 0-12 months of tenure.
-- Examine the needs and expectations of month-to-month customers before testing suitable retention offers.
-- Review the electronic-check and fiber-optic segments in conjunction with tenure, contract type, charges, and service experience.
-- Evaluate whether support, security, or billing improvements address customer concerns; test interventions and track their outcomes.
-- Monitor overall and segment-level churn over time instead of relying on a single snapshot.
+![Customer overview dashboard](visuals/customer_overview.png)
+
+**Churn drivers and retention**
+
+![Churn drivers and retention dashboard](visuals/churn_drivers_retention.png)
+
+The first page summarizes customer, churn, retention, and tenure KPIs. The second compares churn across tenure, payment method, internet service, support, and security.
+
+## Repository contents
+
+```text
+data/
+  Raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+  Cleaned/Telco_Customer_Churn_Cleaned.xlsx
+excel/
+  Telco_Customer_Churn_Cleaned.xlsx
+powerbi/
+  Telco_Customer_Churn_Dashboard.pbix
+python/
+  telco_churn_analysis.py
+reports/
+  CUSTOMER RETENTION & CHURN ANALYSIS.docx
+  CUSTOMER RETENTION & CHURN ANALYSIS.pdf
+  Telco_Customer_Churn_Cleaned.xlsx
+  Telco_Churn_Analysis_Results.xlsx
+visuals/
+  churn_drivers_retention.png
+  customer_overview.png
+```
 
 ## Future implementation roadmap
 
-These are recommended extensions for a future iteration; they are not included in the current descriptive analysis:
+The current analysis is a descriptive baseline. These are potential next steps—not features already included in the project:
 
-1. **Build a validated churn-risk model.** Establish a simple baseline, use customer-level train/validation/test splits, check class imbalance and leakage, and evaluate calibration and recall alongside precision.
+1. **Build a validated churn-risk model.** Establish a simple baseline, use customer-level train/validation/test splits, check class imbalance and leakage, and evaluate calibration, recall, and precision.
 2. **Understand when customers leave.** If dated customer histories become available, add cohort or time-to-event analysis instead of treating a one-time snapshot as a trend.
-3. **Test retention actions.** Design controlled experiments or a suitable holdout evaluation for offers and service changes. Compare incremental retained customers and costs, not just model scores.
-4. **Improve ongoing monitoring.** Refresh the dashboard with consistently defined time-based churn KPIs, cohort tracking, and documented data-quality checks.
+3. **Test retention actions.** Evaluate offers or service changes using controlled experiments or a suitable holdout, measuring incremental retention and cost rather than model scores alone.
+4. **Improve ongoing monitoring.** Add clearly defined time-based churn KPIs, cohort tracking, and documented data-quality checks to the dashboard refresh process.
 
 Use appropriate privacy controls for customer-level records, and review model fairness and business constraints before using risk scores to guide customer contact.
 
-## Limitations
+## Reports
 
-- The dataset is a snapshot and does not establish trends over time or cause and effect.
-- The available fields do not include detailed cancellation reasons, customer satisfaction scores, or complaint histories.
-- Segment-level differences may reflect overlapping factors; additional analysis is needed before acting on them.
-- Recommendations are hypotheses to validate with additional business information or controlled experiments.
-
-## Full report
-
-- [Project report (PDF)](reports/CUSTOMER%20RETENTION%20%26%20CHURN%20ANALYSIS.pdf)
-- [Editable project report (Word)](reports/CUSTOMER%20RETENTION%20%26%20CHURN%20ANALYSIS.docx)
+- [Customer Retention & Churn Analysis — PDF](reports/CUSTOMER%20RETENTION%20%26%20CHURN%20ANALYSIS.pdf)
+- [Customer Retention & Churn Analysis — editable Word report](reports/CUSTOMER%20RETENTION%20%26%20CHURN%20ANALYSIS.docx)
+- [Cleaned customer data and quality documentation](reports/Telco_Customer_Churn_Cleaned.xlsx)
